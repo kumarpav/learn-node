@@ -31,7 +31,7 @@
     }*/
 
 // Filtered LS - creates a program that prints a list of files in a given directory, filtered by the extension of the files
-	var fs = require('fs');
+	/*var fs = require('fs');
 	var path = require('path');
 
 	fs.readdir(process.argv[2], function (err, list) {
@@ -40,4 +40,33 @@
 				console.log(filename);
 			}
 		});
-	});
+	});*/
+
+// Make it modular - create a module that uses callbacks, handles errors, and exports a single function
+/*	var filterDir = require('.filter/-dir');
+
+	var dirPath = process.argv[2],
+	extension = process.argv[3];
+
+	filterDir(dirpath, extension, function ( err, list) {
+		if (err){ 
+			console.log('An error happened when reading ' + dirPath);
+			return err;
+			}
+		
+		list.ForEach(function (filename) {
+			console.log(filename);
+		});
+	});*/
+
+// HTTP client = performs an http get requrst to a url provided as the first command-line argument
+    var http = require('http');
+    var url = process.argv[2];
+    
+    http.get(url, function(response) {
+        response.setEncoding('utf8');
+
+        response.on('data', function (data) {
+            console.log(data);
+        });
+    });
