@@ -60,7 +60,7 @@
 	});*/
 
 // HTTP client = performs an http get requrst to a url provided as the first command-line argument
-    var http = require('http');
+   /* var http = require('http');
     var url = process.argv[2];
     
     http.get(url, function(response) {
@@ -69,4 +69,39 @@
         response.on('data', function (data) {
             console.log(data);
         });
-    });
+    });*/
+
+
+// npm install bl
+// http-collect - uses concat stream to collect all data from the server
+/*	var concatStream = require('concat-stream');
+	var http = require('http');
+	
+	var url = process.argv[2];
+
+	http.get(url, function (response) {
+		response.setEncoding('utf8');
+		response.pip(concatStream(function (data) {
+			console.log(data.length);
+			console.log(data);
+		}));
+	});*/
+
+// time-server : listens to tcp connecitons on the port providede by the first argument to the program
+	var net = require('net');
+ 	var server = net.createServer(function (socket) {
+		socket.end(getFormattedCurrentTime() + "\n");
+	});
+
+	server.listen(process.argv[2]);
+	
+	function getFormattedCurrentTime() {
+		var now = new Date();
+
+	return [now.getFullYear(), formatNumber(now.getMonth() + 1), formatNumber(now.getDate())].join("-")
+		+ " " + [formatNumber(now.getHours()), formatNumber(now.getMinutes())].join(":");
+	}
+
+    function formatNumber(number) {
+        return number < 10 ? "0" + number : number;
+    }
